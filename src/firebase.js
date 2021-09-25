@@ -1,5 +1,3 @@
-import logo from './logo.svg';
-import './App.css';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
@@ -13,10 +11,10 @@ const firebaseConfig = {
 };
 
 const firebase = initializeApp(firebaseConfig);
-const provider = new GoogleAuthProvider();
-const auth = getAuth(firebase);
 
-const signInWithGoogle = () => {
+export const provider = new GoogleAuthProvider();
+export const auth = getAuth(firebase);
+export const signInWithGoogle = () => {
   signInWithPopup(auth, provider)
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -28,19 +26,3 @@ const signInWithGoogle = () => {
       console.error('LOGIN ERROR', error);
     });
 }
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <button onClick={ signInWithGoogle }>Iniciar sesión con Google</button>
-      </header>
-    </div>
-  );
-}
-
-export default App;
