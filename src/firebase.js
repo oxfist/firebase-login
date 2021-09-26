@@ -1,13 +1,18 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+} from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAJHmfUMMEAn87wjxd-MXxrpx5thaMRhhc",
-  authDomain: "fir-login-4641c.firebaseapp.com",
-  projectId: "fir-login-4641c",
-  storageBucket: "fir-login-4641c.appspot.com",
-  messagingSenderId: "744107058336",
-  appId: "1:744107058336:web:2b59054ca0ff8869ed15c5"
+  apiKey: 'AIzaSyAJHmfUMMEAn87wjxd-MXxrpx5thaMRhhc',
+  authDomain: 'fir-login-4641c.firebaseapp.com',
+  projectId: 'fir-login-4641c',
+  storageBucket: 'fir-login-4641c.appspot.com',
+  messagingSenderId: '744107058336',
+  appId: '1:744107058336:web:2b59054ca0ff8869ed15c5',
 };
 
 const firebase = initializeApp(firebaseConfig);
@@ -20,18 +25,21 @@ export const signInWithGoogle = () => {
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
-      const user = result.user;
+      const { user } = result;
 
       console.log(token, user);
-    }).catch((error) => {
+    })
+    .catch((error) => {
       console.error('LOGIN ERROR', error);
     });
-}
+};
 
 export const signOutUser = () => {
-  signOut(auth).then(() => {
-    console.log('Signed out');
-  }).catch((error) => {
-    console.error(error);
-  })
-}
+  signOut(auth)
+    .then(() => {
+      console.log('Signed out');
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
