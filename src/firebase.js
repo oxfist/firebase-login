@@ -4,6 +4,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signOut,
+  deleteUser,
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -15,19 +16,31 @@ const firebaseConfig = {
   appId: '1:744107058336:web:2b59054ca0ff8869ed15c5',
 };
 
+const allowedEmailDomains = /laboratoria.la/;
+
 const firebase = initializeApp(firebaseConfig);
+
+const allowedEmail = (email) => {
+  return email.match(allowedEmailDomains) !== null;
+};
 
 export const provider = new GoogleAuthProvider();
 export const auth = getAuth(firebase);
 
-export const signInWithGoogle = () => {
-  signInWithPopup(auth, provider)
+export const signOutUser = () => {
+  signOut(auth)
     .then(() => {})
     .catch(() => {});
 };
 
-export const signOutUser = () => {
-  signOut(auth)
-    .then(() => {})
+export const signInWithGoogle = () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const { user } = result;
+
+      if (!allowedEmail(user.email)) {
+        deleteUser(user);
+      }
+    })
     .catch(() => {});
 };
