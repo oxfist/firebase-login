@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAJHmfUMMEAn87wjxd-MXxrpx5thaMRhhc",
@@ -14,6 +14,7 @@ const firebase = initializeApp(firebaseConfig);
 
 export const provider = new GoogleAuthProvider();
 export const auth = getAuth(firebase);
+
 export const signInWithGoogle = () => {
   signInWithPopup(auth, provider)
     .then((result) => {
@@ -25,4 +26,12 @@ export const signInWithGoogle = () => {
     }).catch((error) => {
       console.error('LOGIN ERROR', error);
     });
+}
+
+export const signOutUser = () => {
+  signOut(auth).then(() => {
+    console.log('Signed out');
+  }).catch((error) => {
+    console.error(error);
+  })
 }

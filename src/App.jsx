@@ -1,8 +1,17 @@
+import { useState } from 'react';
+
 import logo from './logo.svg';
 import './App.css';
-import { signInWithGoogle } from './firebase';
+import { auth, signInWithGoogle, signOutUser } from './firebase';
+import { onAuthStateChanged } from '@firebase/auth';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  onAuthStateChanged(auth, (user) => {
+    return user ? setIsLoggedIn(true) : setIsLoggedIn(false);
+  });
+
   return (
     <div className="App">
       <header className="App-header">
@@ -10,7 +19,10 @@ function App() {
         <p>
           Edit <code>src/App.jsx</code> and save to reload.
         </p>
-        <button onClick={ signInWithGoogle }>Iniciar sesión con Google</button>
+        { isLoggedIn ?
+          <button onClick={ signOutUser }>Cerrar sesión</button> :
+          <button onClick={ signInWithGoogle }>Iniciar sesión con Google</button>
+        }
       </header>
     </div>
   );
