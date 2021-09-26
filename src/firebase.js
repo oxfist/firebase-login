@@ -22,24 +22,12 @@ export const auth = getAuth(firebase);
 
 export const signInWithGoogle = () => {
   signInWithPopup(auth, provider)
-    .then((result) => {
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      const { user } = result;
-
-      console.log(token, user);
-    })
-    .catch((error) => {
-      console.error('LOGIN ERROR', error);
-    });
+    .then(() => {})
+    .catch(() => {});
 };
 
 export const signOutUser = () => {
   signOut(auth)
-    .then(() => {
-      console.log('Signed out');
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    .then(() => {})
+    .catch(() => {});
 };
