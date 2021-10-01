@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import PropTypes from 'prop-types';
 
 import logo from './logo.svg';
 import './App.css';
@@ -19,10 +18,10 @@ const AuthButton = ({ authenticated }) => {
 };
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   onAuthStateChanged(auth, (user) =>
-    user ? setIsLoggedIn(true) : setIsLoggedIn(false)
+    user ? setLoggedIn(true) : setLoggedIn(false)
   );
 
   return (
@@ -32,14 +31,10 @@ const App = () => {
         <p>
           Edit <code>src/App.jsx</code> and save to reload.
         </p>
-        <AuthButton authenticated={isLoggedIn} />
+        <AuthButton authenticated={loggedIn} />
       </header>
     </div>
   );
 };
 
 export default App;
-
-AuthButton.propTypes = {
-  authenticated: PropTypes.bool.isRequired,
-};
