@@ -17,6 +17,7 @@ const firebaseConfig = {
 };
 
 const allowedEmailDomains = /laboratoria.la/;
+const unauthorizedEmailErrorMessage = 'Only @laboratoria.la emails allowed';
 
 const firebase = initializeApp(firebaseConfig);
 
@@ -40,7 +41,10 @@ export const signInWithGoogle = () => {
 
       if (!allowedEmail(user.email)) {
         deleteUser(user);
+        throw new Error(unauthorizedEmailErrorMessage);
       }
     })
-    .catch(() => {});
+    .catch((e) => {
+      console.error(e.message);
+    });
 };
