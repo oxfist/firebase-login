@@ -44,7 +44,5 @@ export const signInWithGoogle = () => {
         throw new Error(unauthorizedEmailErrorMessage);
       }
     })
-    .catch((e) => {
-      console.error(e.message);
-    });
+    .catch(() => {});
 };
